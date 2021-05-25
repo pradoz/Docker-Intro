@@ -1,0 +1,11 @@
+FROM alpine:latest
+
+RUN apk update
+
+RUN mkdir /app
+WORKDIR /app
+
+COPY print_date.sh .
+RUN chmod 700 print_date.sh
+
+CMD ["sh", "./print_date.sh"]

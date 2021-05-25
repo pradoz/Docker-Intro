@@ -1,0 +1,20 @@
+FROM alpine:latest
+
+RUN apk update
+RUN apk add git build-base
+
+RUN git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg
+
+WORKDIR /ffmpeg
+
+RUN ./configure --disable-x86asm
+RUN make -j 4
+RUN make install && make clean
+
+WORKDIR /
+RUN rm -rf /ffmpeg
+
+CMD ["ffmpeg", "--help"]
+
+
+# CMD ["sh", "./print_date.sh"]
